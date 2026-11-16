@@ -487,24 +487,29 @@
     {
       "member_id": "AGPC-020",
       "slug": "douglas-mbang-massom",
-      "full_name": "Douglas MBANG MASSOM",
-      "designation": null,
+      "full_name": "Douglas Mbang Massom",
+      "designation": "Research Collaboration & Partnerships",
       "membership_type": "Founding Member",
-      "institution": null,
+      "institution": "Médecins Sans Frontières (MSF); COMPASS; AFRI-SPARC",
       "qualification": null,
-      "country": null,
-      "biography": "I am an epidemiologist and field researcher with 13+ years of experience in rigorous research, evidence generation, data analysis, and international programs, now transitionning his career to AI governance. I coordinated the deployment of a machine learning diagnostic tool for cervical cancer screening in Malawi, an experience that exposed significant gaps in AI oversight and regulation across under-resourced health systems in Africa.\n\nI am the author of IA & Cadres Dirigeants (IACD), an AI governance newsletter for executives, CEOs, and decision-makers in the public and private sectors, which has grown to nearly 6,000 subscribers on LinkedIn. I am currently completing a pedagogical book on AI risks for the general public, aimed at improving AI literacy in francophone Africa. My work focuses on closing the AI governance and literacy gap in francophone and under-resourced regions of the Global South, combining a research background in data ethics and regulatory compliance with a commitment to making AI risk understandable and actionable for non-technical audiences.",
+      "country": "Cameroon",
+      "biography": "Douglas Mbang Massom is an epidemiologist and field researcher with more than 13 years of experience in evidence generation, data analysis and international research programmes. He is a Research Manager at Médecins Sans Frontières (MSF), Founder and Research Director of Civic Oversight and Management for Public-Interest AI Systems (COMPASS), and a Fellow of the Africa Strategic Policy and AI Resource Centre (AFRI-SPARC).\n\nHis work spans multi-country health research and the real-world use of technology in low-resource settings. He coordinated the deployment of a machine-learning diagnostic tool for cervical cancer screening in Malawi and contributed to a six-country evaluation of decentralised childhood tuberculosis diagnosis. That research brought together clinicians, economists, modellers and national programmes and informed policy recommendations to the World Health Organization. His work also includes research on electronic consultation registers and digital health implementation in Burkina Faso.\n\nMassom’s current AI governance work focuses on public-interest oversight, health, humanitarian action and the practical application of ethical safeguards. He has assessed an AI-supported cervical cancer screening programme against WHO ethical principles and co-authored work proposing a minimum ethical floor for AI in humanitarian action. He also writes the AI governance newsletter IA & Cadres Dirigeants for decision-makers and is developing AI-risk literacy resources for francophone Africa.\n\nAs a Founding Committee member responsible for Research Collaboration and Partnerships, he brings networks across humanitarian, research and African AI policy communities. He emphasizes equitable partnerships, shared agenda-setting, co-authorship and fair credit, with Global South partners in leadership.\n\nFor his first 90 days, he proposes a Global South AI Governance Partnership Map and Engagement Framework. The plan is to map at least 25 institutions working on AI governance in health and humanitarian settings, engage 10 priority partners, and seek three concrete commitments such as joint research, a co-authored policy brief or a webinar. The framework would set clear expectations for collaboration, data and credit principles, and shared leadership, followed by a report to the committee with recommended next steps.",
       "professional_expertise": [
+        "AI Policy & Governance",
+        "AI Ethics & Governance",
         "Researcher"
       ],
       "photo": "/assets/member-photos/AGPC-020.png",
-      "photo_alt": "Douglas Mbang Massom — Founding Committee",
-      "social_links": {},
+      "photo_alt": "Douglas Mbang Massom — Research Collaboration & Partnerships",
+      "social_links": {
+        "linkedin": "https://www.linkedin.com/in/douglas-mbang-massom-044061100/",
+        "Google Scholar": "https://scholar.google.com/citations?user=L5SmoBIAAAAJ&hl=en"
+      },
       "membership_status": "source-audited",
       "verification_status": "source-audited",
       "display_order": 20,
       "created_at": "2026-11-15",
-      "updated_at": "2026-11-15",
+      "updated_at": "2026-11-16",
       "profile_url": "https://coalitionmembers.atlasai.institute/members/douglas-mbang-massom/"
     },
     {
