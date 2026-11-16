@@ -23,25 +23,30 @@
       "member_id": "AGPC-001",
       "slug": "ekaterina-matveeva",
       "full_name": "Ekaterina Matveeva",
-      "designation": null,
+      "designation": "International Collaboration & Partnerships Lead",
       "membership_type": "Founding Member",
-      "institution": null,
+      "institution": "Amolingua; Lingo+",
       "qualification": null,
-      "country": null,
-      "biography": "Ekaterina Matveeva is Director at Amolingua, an edtech company specializing in language learning, cultural intelligence, and multilingual soft skills training using the proprietary Language Alter Ego methodology, and at Lingoplus, an EU co-funded edtech company focused on teacher training. Amolingua is also a running Language Institute at TXST CE. \n\nSince 2023, Ekaterina has been leading linguistic consulting and prompt development teams for AI companies in Asia, focusing on conversational fluency, cross-cultural sensitivity, and emotionally intelligent responses across 7+ languages. She has also been collaborating with top US AI companies, running RLHF with writer and reviewer teams on education-focused projects, and providing expert feedback on linguistic relevance, pedagogical usefulness, and cultural nuance.\nBeyond her technical work, \n\nEkaterina has given talks on AI and education, and currently co-organizes roundtables as part of the \"Year of AI Challenged\" series, bringing together practitioners to grapple openly with the unresolved questions in responsible AI development.\n\nShe believes linguistically and culturally attuned AI isn't a luxury feature, it's foundational.",
+      "country": "Argentina",
+      "biography": "Ekaterina Matveeva is an entrepreneur, interdisciplinary researcher and international AI-and-education specialist working at the intersection of artificial intelligence, multilingualism, intercultural communication and human development. She is based in Argentina and brings practical AI industry experience together with research on language, culture and inclusive participation.\n\nShe is Founder and Director of Amolingua, an international education technology company specialising in language learning, cultural intelligence and multilingual soft skills. She also serves as Director at Lingo+, an EU-co-funded teacher-training initiative. Amolingua’s Language Institute operates through Texas State University Continuing Education.\n\nSince 2023, Matveeva has led multilingual AI consulting and prompt-development teams for AI companies in Asia and collaborated with US-based AI companies on reinforcement learning from human feedback and model evaluation. She has coordinated international writer and reviewer teams and advised on linguistic relevance, conversational fluency, pedagogical quality, cultural representation and contextual alignment.\n\nHer interdisciplinary research includes the Language Alter Ego framework and explores how multilingualism and intercultural environments shape personality, cognition, communication and identity. The work draws on autoethnographic research, 21 interviews across nine countries, observations of multilingual learning environments, and study of linguistic imperialism and sociocultural adaptation. She also co-organises the Year of AI Challenged roundtable series and edits the forthcoming book of the same name.\n\nAs the Coalition’s International Collaboration and Partnerships Lead, Matveeva works to connect researchers, academic institutions, technology practitioners, policy experts and youth-led organisations across regions. Her Founding Committee remit includes youth, multilingualism and culturally inclusive AI governance, with a focus on ensuring that linguistic and cultural diversity and Global South perspectives are represented in international research and policy dialogue.\n\nFor her first 90 days, she proposes a focused expert contribution to the preliminary UNESCO Recommendation on AI and Youth. The work would review the draft, identify gaps relating to multilingualism, cultural diversity, youth agency and equitable participation, and develop three to five evidence-based textual recommendations. She also proposes targeted input from researchers and youth stakeholders across regions, particularly the Global South, for consideration through appropriate UNESCO-related and Coalition channels.",
       "professional_expertise": [
-        "Industry"
+        "AI Policy & Governance",
+        "AI Ethics & Governance",
+        "Industry",
+        "Researcher"
       ],
       "photo": "/assets/member-photos/AGPC-001.png",
-      "photo_alt": "Ekaterina Matveeva — Founding Committee",
+      "photo_alt": "Ekaterina Matveeva — International Collaboration & Partnerships Lead",
       "social_links": {
-        "linkedin": "https://www.linkedin.com/in/ekaterina-matveeva/"
+        "linkedin": "https://www.linkedin.com/in/ekaterina-matveeva/",
+        "Website": "https://www.ekaterinamatveeva.com/",
+        "Amolingua": "https://amolingua.com/"
       },
       "membership_status": "source-audited",
       "verification_status": "source-audited",
       "display_order": 1,
       "created_at": "2026-11-15",
-      "updated_at": "2026-11-15",
+      "updated_at": "2026-11-16",
       "profile_url": "https://coalitionmembers.atlasai.institute/members/ekaterina-matveeva/"
     },
     {
