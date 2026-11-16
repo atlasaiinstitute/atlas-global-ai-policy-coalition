@@ -3972,17 +3972,19 @@
       "member_id": "AGPC-162",
       "slug": "wafa-al-daily",
       "full_name": "Wafa Al-Daily",
-      "designation": null,
+      "designation": "Co-Chair, Coalition Committee",
       "membership_type": "Member",
-      "institution": null,
+      "institution": "EHAAR International LLC; ISOCARP",
       "qualification": null,
-      "country": null,
-      "biography": "Dr. Wafa Al-Daily is a global executive and strategic advisor with over 25 years of experience in governance, international development, urban transformation, and institutional leadership. Her work spans diverse regions worldwide, with a particular focus on developing countries and the Middle East and North Africa (MENA), addressing complex challenges in policy reform, climate resilience, post-conflict recovery, and institutional capacity building. She has collaborated with governments, multilateral organizations, development banks, and academic institutions to advance inclusive and sustainable development. She serves as Vice President for Governance, Strategy and Policy at International Society of City and Regional Planners (ISOCARP) and Co-Founder and Executive Director of EHAAR International. Her professional interests lie at the intersection of AI governance, digital transformation, international cooperation, and equitable development, particularly the implications of emerging technologies for institutional capacity, human rights, and vulnerable communities.",
+      "country": "United States",
+      "biography": "Dr. Wafa Al-Daily is an international executive, senior advisor and urban planner with more than 25 years of experience in governance, policy, institutional development and inclusive urban development. Her work spans governments, multilateral organizations, universities and international development institutions, with particular engagement in the Global South, the Middle East and North Africa, and fragile and conflict-affected settings.\n\nShe is Co-Founder and Executive Director of EHAAR International LLC and Vice President for Governance, Strategy and Policy at the International Society of City and Regional Planners (ISOCARP). Across these roles, she contributes to institutional strategy, governance, international partnerships and complex, multi-stakeholder initiatives. Her work has included collaboration with the World Bank, Virginia Tech, governments and development partners on institutional reform, urban inclusion, education, accessibility, post-conflict recovery and capacity development.\n\nHer experience includes managing a STEM education assessment in Palestine under the SERATAC II initiative, drawing on 64 classroom observations across six education directorates to inform recommendations on teaching practice, professional development and institutional reform. She has also contributed to higher-education institution-building and international cooperation, and engaged in policy dialogue on artificial intelligence, digital cooperation, data privacy and the implications of emerging technologies for cities and developing countries.\n\nAs Co-Chair of the Coalition Committee, Dr. Al-Daily brings an institutional and development perspective to AI policy and governance. Her priorities include public accountability, regulatory capacity, digital inclusion, human rights and data sovereignty, alongside stronger representation of Global South perspectives in international AI governance.\n\nFor the Coalition’s first 90 days, she proposes a practical Strategic Priorities and Coordination Framework developed through consultation with members and Atlas AI Institute. The framework would assess institutional priorities and available expertise, identify three policy and research priorities, clarify leadership responsibilities and decision-making, and set out a realistic 12-month roadmap. Her proposed milestones are a consultation draft by Day 45, committee review by Day 60, and a final framework with a documented action log by Day 90. Her approach emphasizes transparent governance, research independence, meaningful participation, regional representation and measurable progress.",
       "professional_expertise": [
-        "Academic"
+        "AI Policy & Governance",
+        "Civil Society",
+        "Researcher"
       ],
       "photo": "/assets/member-photos/AGPC-162.png",
-      "photo_alt": "Wafa Al-Daily — Founding Committee",
+      "photo_alt": "Wafa Al-Daily — Co-Chair, Coalition Committee",
       "social_links": {
         "linkedin": "https://www.linkedin.com/in/wafa-al-daily/"
       },
@@ -3990,7 +3992,7 @@
       "verification_status": "source-audited",
       "display_order": 162,
       "created_at": "2026-11-15",
-      "updated_at": "2026-11-15",
+      "updated_at": "2026-11-16",
       "profile_url": "https://coalitionmembers.atlasai.institute/members/wafa-al-daily/"
     },
     {
