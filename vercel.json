@@ -1,5 +1,17 @@
 {
   "version": 2,
   "buildCommand": "npm run build",
-  "outputDirectory": "dist"
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/members/:slug", "destination": "/index.html" },
+    { "source": "/member-countries/:slug", "destination": "/index.html" },
+    { "source": "/countries/:slug", "destination": "/index.html" },
+    { "source": "/leadership/:slug", "destination": "/index.html" },
+    { "source": "/policy-research/:slug", "destination": "/index.html" },
+    { "source": "/initiatives/:slug", "destination": "/index.html" },
+    { "source": "/publications/:slug", "destination": "/index.html" },
+    { "source": "/news/:slug", "destination": "/index.html" },
+    { "source": "/events/:slug", "destination": "/index.html" },
+    { "source": "/contributions/:slug", "destination": "/index.html" }
+  ]
 }
