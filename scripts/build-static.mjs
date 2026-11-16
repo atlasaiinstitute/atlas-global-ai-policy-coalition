@@ -41,7 +41,7 @@ for (const directory of directories) {
   });
 }
 
-for (const file of ["index.html", "404.html", "manus-routes.json"]) {
+for (const file of ["index.html", "404.html", "manus-routes.json", "favicon.ico"]) {
   await cp(path.join(projectRoot, file), path.join(outputDir, file));
 }
 
@@ -52,6 +52,9 @@ const runtimeConfig = [
   "",
 ].join("\n");
 await writeFile(path.join(outputDir, "web3forms-config.js"), runtimeConfig, "utf8");
+
+// Prerender committee pages and committee-member profiles for search crawlers.
+await import("./generate-seo-pages.mjs");
 
 console.log(`Static site built in ${path.relative(projectRoot, outputDir)}/`);
 console.log(
