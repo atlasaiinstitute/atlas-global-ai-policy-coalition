@@ -2264,25 +2264,27 @@
       "member_id": "AGPC-092",
       "slug": "pretty-tega-edema-phd",
       "full_name": "Pretty Tega Edema, PhD",
-      "designation": null,
+      "designation": "AI Governance, Law & Rights",
       "membership_type": "Founding Member",
-      "institution": null,
-      "qualification": null,
-      "country": null,
-      "biography": "I work around the intersection of Education, AI governance, AI ethics/responsible AI deployment particularly within the Global South. I am currently the Research Lead at Pan African Centre for AI Ethics (PACFAIE) and an AI Ethics and Governance Fellow of the Policy and Innovation Centre (PiC). As my capstone project, I just developed an Audit Checklist  for AI Proctoring and Grading Assessment Tools to be used within Sub sahara Africa. I also have a soon-to-be-published monograph titled, Artificial Intelligence in African Context: An Overview of Key Issues which critically examines salient and pivotal factors to be considered in relation to AI investment, deployment and policymaking in Africa. I am also the author of four books on data privacy and protection.",
+      "institution": "Admiralty University of Nigeria; Pan Africa Centre for AI Ethics",
+      "qualification": "PhD",
+      "country": "Nigeria",
+      "biography": "Pretty Tega Edema, PhD, is a Nigerian lecturer and researcher working at the intersection of law, technology and human rights. She teaches at Admiralty University of Nigeria and serves as Research Lead at the Pan Africa Centre for AI Ethics, where her work examines how AI affects privacy, online safety and fairness in digital decision-making.\n\nShe is Education and Training Director of the Data Privacy Lawyers Association of Nigeria, designing practical learning for legal and professional audiences navigating technological change. She founded the Privacy, Online Safety and Technology Hub to help young people and students understand their digital rights and stay safer online. Her regional engagement includes fellowships with the Policy and Innovation Center, the West Africa School of Internet Governance and the Africa Privacy Book Club.\n\nEdema has authored four books on data privacy and protection: Artificial Intelligence in African Context: An Overview of Key Issues; A Glossary of Data Privacy and Data Protection; Forms and Precedents in Data Privacy Law; and Compendium of Nigerian Data Privacy Protection Laws. Her peer-reviewed work addresses image rights, privacy rights, regulatory responses and judicial approaches to data protection in Nigeria.\n\nAs a member of the Coalition’s AI Governance, Law and Rights committee, she brings an African legal and human-rights perspective to responsible AI. Her work calls for governance discussions that reflect the realities of African communities while engaging with international developments.\n\nFor her first 90 days, she proposes a focused comparative working paper on liability and accountability for AI systems used in public decision-making in selected Global South countries. The study would examine concrete cases, identify gaps or weaknesses in existing legal frameworks, and draw on targeted contributions from Coalition members across regions. Designed as a practical working paper rather than a broad survey, it would provide an early shared output and a foundation for further comparative research.",
       "professional_expertise": [
+        "AI Ethics & Governance",
+        "AI Policy & Governance",
         "Academic"
       ],
       "photo": "/assets/member-photos/AGPC-092.png",
-      "photo_alt": "Pretty Tega Edema — Founding Committee",
+      "photo_alt": "Pretty Tega Edema, PhD — AI Governance, Law & Rights",
       "social_links": {
-        "linkedin": "https://www.linkedin.com/in/tegaedema?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+        "linkedin": "https://www.linkedin.com/in/tegaedema/"
       },
       "membership_status": "source-audited",
       "verification_status": "source-audited",
       "display_order": 92,
       "created_at": "2026-11-15",
-      "updated_at": "2026-11-15",
+      "updated_at": "2026-11-16",
       "profile_url": "https://coalitionmembers.atlasai.institute/members/pretty-tega-edema-phd/"
     },
     {
