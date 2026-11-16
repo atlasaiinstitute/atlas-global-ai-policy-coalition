@@ -2,6 +2,8 @@
 
 **Scope:** Atlas Global South AI Policy Coalition Leadership and Founding Committee pages, plus the eight linked Founding Committee member profiles.
 
+> **Status:** This report records the earlier Committee-only implementation. Its original canonical-domain recommendations have been superseded by [the Phase 1 global discoverability report](PHASE-1-GLOBAL-DISCOVERABILITY-REPORT.md), which uses the verified Vercel production domain and a centralized planned-domain configuration.
+
 ## 1. Existing SEO condition
 
 The repository’s original leadership and Founding Committee HTML files were generic shells: the `<title>` and description described the member registry, the `#app` container was empty in the initial HTML, and the pages had no canonical URL, Open Graph or X/Twitter metadata, or JSON-LD. No project-generated `robots.txt` or `sitemap.xml` was present. The existing browser renderer and member/committee source data were retained.
@@ -55,8 +57,8 @@ The GitHub push succeeded, but the sandbox could not resolve or extract the publ
 
 ## 10. Recommended next steps
 
-1. Deploy the updated static build and request inspection of the live raw HTML and HTTP status for both Committee routes and a representative member profile.
-2. Submit `https://coalition.atlasai.institute/sitemap.xml` in Google Search Console and Bing Webmaster Tools after confirming ownership.
+1. After the Phase 1 build is deployed, inspect the live raw HTML and HTTP status for both Committee routes and a representative member profile on the configured Vercel primary domain.
+2. Submit `https://atlas-global-ai-policy-coalition.vercel.app/sitemap.xml` in Google Search Console and Bing Webmaster Tools after confirming ownership.
 3. Run Google Rich Results Test and Schema.org Validator on the deployed Committee and member-profile URLs; resolve any validator feedback that is relevant and supported by visible content.
 4. Run PageSpeed Insights and Lighthouse on the deployed site for mobile and desktop; investigate remaining font/CSS blocking and confirm host-level compression and cache behavior. The local audit is a diagnostic baseline only.
 5. Ask the Atlas AI Institute website maintainer to add a descriptive link back to the official Coalition website and committee page if appropriate.

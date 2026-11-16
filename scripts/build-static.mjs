@@ -41,7 +41,7 @@ for (const directory of directories) {
   });
 }
 
-for (const file of ["index.html", "404.html", "manus-routes.json", "favicon.ico"]) {
+for (const file of ["index.html", "404.html", "manus-routes.json", "favicon.ico", "google343e8e6554f1798d.html"]) {
   await cp(path.join(projectRoot, file), path.join(outputDir, file));
 }
 

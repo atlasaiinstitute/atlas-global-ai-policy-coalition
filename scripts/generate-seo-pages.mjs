@@ -5,48 +5,74 @@ import { fileURLToPath } from "node:url";
 
 const projectRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const outputRoot = path.join(projectRoot, "dist");
-const origin = "https://coalition.atlasai.institute";
-const instituteUrl = "https://atlasai.institute";
-const linkedinUrl = "https://www.linkedin.com/showcase/atlas-global-south-ai-policy-coalition/";
-const coalitionId = `${origin}/#organization`;
-const websiteId = `${origin}/#website`;
-const logoUrl = `${origin}/assets/atlas-global-south-logo.jpg`;
-const profileKeywords = [
-  "Atlas Global South AI Policy Coalition",
-  "global AI governance",
-  "international AI policy",
-  "responsible AI governance",
-  "AI policy research",
-  "Global South perspectives",
-  "international policy cooperation",
-];
-
 const readJson = async (relativePath) =>
   JSON.parse(await readFile(path.join(projectRoot, relativePath), "utf8"));
-const [membersData, committeeData, homepageData] = await Promise.all([
-  readJson("data/members.json"),
-  readJson("data/founding-committee.json"),
-  readJson("data/homepage-content.json"),
-]);
+const domainConfig = await readJson("site-domains.json");
+const origin = new URL(domainConfig.primaryCanonicalOrigin).origin;
+const linkedinUrl = "https://www.linkedin.com/showcase/atlas-global-south-ai-policy-coalition/";
+const logoUrl = `${origin}/assets/atlas-global-south-logo.jpg`;
+const coalitionId = `${origin}/#organization`;
+const websiteId = `${origin}/#website`;
+const googleVerification = "I60SfR9EJ1Gzc2L719S3_uOF1rQ-T0e3SNM2fbEF6MU";
+
+const [membersData, committeeData, homepageData, contributionsData, countriesData, routesData] =
+  await Promise.all([
+    readJson("data/members.json"),
+    readJson("data/founding-committee.json"),
+    readJson("data/homepage-content.json"),
+    readJson("data/contributions.json"),
+    readJson("data/countries.json"),
+    readJson("manus-routes.json"),
+  ]);
 const members = membersData.members;
 const appSource = await readFile(path.join(projectRoot, "src/app.js"), "utf8");
 if (!/\nload\(\);\s*$/.test(appSource)) {
   throw new Error("Could not safely prepare the existing app renderer for static page generation.");
 }
-const sandbox = {};
-sandbox.homepageData = homepageData;
-sandbox.members = members;
-sandbox.committeeData = committeeData;
+let renderedMarkup = "";
+const appMount = {
+  get innerHTML() { return renderedMarkup; },
+  set innerHTML(value) { renderedMarkup = String(value); },
+};
+const prerenderDocument = {
+  title: "",
+  querySelector(selector) { return selector === "#app" ? appMount : null; },
+  querySelectorAll() { return []; },
+  head: { querySelector() { return null; }, appendChild() {} },
+  createElement() { return { setAttribute() {}, content: "" }; },
+};
+const sandbox = {
+  document: prerenderDocument,
+  location: { pathname: "/", href: `${origin}/` },
+  membersData,
+  committeeData,
+  homepageData,
+  contributionsData,
+  countriesData,
+  siteOrigin: origin,
+};
 vm.createContext(sandbox);
 vm.runInContext(
   `${appSource.replace(/\nload\(\);\s*$/, "\n")}
 state.homepage = homepageData;
-state.members = members;
+state.members = membersData.members;
+state.auditedCount = membersData.meta.audited_records || membersData.members.length;
 state.committee = committeeData.members;
 state.committeeName = committeeData.committee_name;
 state.committeeType = committeeData.committee_type || committeeData.committee;
 state.committeeHost = committeeData.institutional_host_and_secretariat;
-globalThis.prerender = { header, footer, leadershipOverview, foundingCommittee, profile, committeeFaqItems };
+state.contributions = contributionsData.contributions || [];
+state.countries = countriesData.countries || [];
+globalThis.prerender = {
+  header, footer, leadershipOverview, foundingCommittee, profile, committeeFaqItems,
+  renderRoute(route) {
+    location.pathname = route;
+    location.href = siteOrigin + route;
+    renderedMarkup = "";
+    render();
+    return { html: document.querySelector("#app").innerHTML, title: document.title };
+  },
+};
 `,
   sandbox,
   { filename: "src/app.js" },
@@ -68,15 +94,9 @@ const entityOrganization = {
   "@id": coalitionId,
   name: "Atlas Global South AI Policy Coalition",
   url: `${origin}/`,
-  description:
-    "An international platform for AI policy, governance, research and cooperation, convened by Atlas AI Institute. The Institute serves as the Coalition's institutional host and secretariat.",
+  description: homepageData.about.body,
+  logo: { "@type": "ImageObject", url: `${origin}/assets/atlas-global-south-logo.jpg` },
   sameAs: [linkedinUrl],
-  parentOrganization: {
-    "@type": "Organization",
-    "@id": `${instituteUrl}/#organization`,
-    name: "Atlas AI Institute",
-    url: instituteUrl,
-  },
 };
 const websiteEntity = {
   "@type": "WebSite",
@@ -228,9 +248,94 @@ function profileGraph(profile, committeeMember, route, title, description) {
   };
 }
 
-function pageDocument({ route, title, description, html, graph, image = logoUrl }) {
+function publicPageGraph(route, title, description) {
+  const url = absolute(cleanRoute(route));
+  const isAbout = route === "/about/";
+  const isHome = route === "/";
+  const page = {
+    "@type": isAbout ? "AboutPage" : "WebPage",
+    "@id": `${url}#webpage`,
+    url,
+    name: title,
+    description,
+    inLanguage: "en",
+    isPartOf: { "@id": websiteId },
+    about: { "@id": coalitionId },
+  };
+  if (isHome || isAbout) page.mainEntity = { "@id": coalitionId };
+  return {
+    "@context": "https://schema.org",
+    "@graph": [entityOrganization, websiteEntity, page],
+  };
+}
+
+const decodeHtml = (value) => String(value ?? "")
+  .replace(/&amp;/g, "&").replace(/&quot;/g, '"').replace(/&#39;|&apos;/g, "'")
+  .replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
+  .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n)))
+  .replace(/&#x([\da-f]+);/gi, (_, n) => String.fromCodePoint(parseInt(n, 16)));
+const plainText = (html) => decodeHtml(String(html).replace(/<[^>]*>/g, " "))
+  .replace(/\s+/g, " ").trim();
+function trimDescription(value, limit = 155) {
+  const text = String(value || "").replace(/\s+/g, " ").trim();
+  if (text.length <= limit) return text;
+  const prefix = text.slice(0, limit - 1);
+  const boundary = prefix.lastIndexOf(" ");
+  return `${prefix.slice(0, boundary > 90 ? boundary : limit - 1).replace(/[ ,;:.!?-]+$/, "")}…`;
+}
+function pageDescription(route, html) {
+  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || html;
+  const paragraphs = [...main.matchAll(/<p\b[^>]*>([\s\S]*?)<\/p>/gi)]
+    .map((match) => plainText(match[1])).filter((value) => value.length > 30);
+  const source = paragraphs[0] || homepageData.about.body;
+  return trimDescription(source);
+}
+function pageKeywords(html) {
+  const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/i)?.[1] || html;
+  const bodyText = plainText(main).toLowerCase();
+  const heading = plainText(main.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "")
+    .replace(/[,:;]+/g, " ").replace(/\s+/g, " ").trim();
+  const existingTopics = [
+    "AI governance", "AI policy", "responsible AI", "international cooperation",
+    "global South", "policy research", "membership", "member registry",
+    "founding committee", "AI ethics", "institutional capacity", "country engagement",
+    "international dialogue", "reader charter", "publication", "events",
+  ].filter((term) => bodyText.includes(term.toLowerCase()));
+  const keywords = [heading, "Atlas Global South AI Policy Coalition", ...existingTopics]
+    .map((term) => term.trim()).filter(Boolean)
+    .filter((term, index, all) => all.findIndex((candidate) => candidate.toLowerCase() === term.toLowerCase()) === index)
+    .slice(0, 8);
+  for (const fallback of ["AI governance", "AI policy"]) {
+    if (keywords.length >= 3) break;
+    if (!keywords.some((term) => term.toLowerCase() === fallback.toLowerCase())) keywords.push(fallback);
+  }
+  return keywords;
+}
+function pageTitle(route, manifestTitle, html) {
+  if (route === "/") return "Atlas Global South AI Policy Coalition | AI Governance";
+  if (route === "/about/") return "About the Coalition | Atlas Global South AI Policy Coalition";
+  let base = String(manifestTitle || "").replace(/\s*\|.*$/, "").trim()
+    || plainText(html.match(/<h1\b[^>]*>([\s\S]*?)<\/h1>/i)?.[1] || "Coalition information");
+  const titlePrefixes = {
+    "Contact": "Contact the Coalition",
+    "Countries": "Coalition Countries",
+    "Events": "Coalition Events",
+    "Governance": "Coalition Governance",
+    "Members": "Coalition Members",
+    "Membership": "Coalition Membership",
+    "News": "Coalition News",
+  };
+  base = titlePrefixes[base] || base;
+  const suffix = " | Atlas Coalition";
+  const maxBase = 60 - suffix.length;
+  if (base.length <= maxBase) return `${base}${suffix}`;
+  const cropped = base.slice(0, maxBase - 1);
+  const boundary = cropped.lastIndexOf(" ");
+  return `${cropped.slice(0, boundary > 15 ? boundary : maxBase - 1).trimEnd()}…${suffix}`;
+}
+
+function pageDocument({ route, pageRoute = route, title, description, keywords = [], html, graph, image = logoUrl }) {
   const canonical = absolute(cleanRoute(route));
-  const keywords = profileKeywords.join(", ");
   const head = [
     '<!doctype html>',
     '<html lang="en">',
@@ -239,7 +344,9 @@ function pageDocument({ route, title, description, html, graph, image = logoUrl 
     '<meta name="viewport" content="width=device-width,initial-scale=1">',
     `<title>${escapeHtml(title)}</title>`,
     `<meta name="description" content="${escapeHtml(description)}">`,
-    `<meta name="keywords" content="${escapeHtml(keywords)}">`,
+    `<meta name="keywords" content="${escapeHtml(keywords.join(", "))}">`,
+    `<meta name="google-site-verification" content="${googleVerification}">`,
+    `<meta name="atlas-prerendered-route" content="${escapeHtml(cleanRoute(pageRoute))}">`,
     '<meta name="robots" content="index,follow,max-image-preview:large">',
     '<link rel="icon" href="/favicon.ico" type="image/x-icon">',
     `<link rel="canonical" href="${escapeHtml(canonical)}">`,
@@ -270,29 +377,36 @@ function pageDocument({ route, title, description, html, graph, image = logoUrl 
   return head.join("");
 }
 
-const committeePages = [
-  {
-    route: "/leadership/",
-    title: "Leadership | Atlas Global South AI Policy Coalition",
-    description:
-      "Meet the Atlas Global South AI Policy Coalition’s Founding Committee, convened by Atlas AI Institute to support international AI policy dialogue.",
-    html: `${render.header()}${render.leadershipOverview()}${render.footer()}`,
-  },
-  {
-    route: "/leadership/founding-committee/",
-    title: "Founding Committee | Atlas Global South AI Policy Coalition",
-    description:
-      "Meet the eight-member Founding Committee of the Atlas Global South AI Policy Coalition, convened by Atlas AI Institute, and explore its published roles.",
-    html: `${render.header()}${render.foundingCommittee()}${render.footer()}`,
-  },
-];
-
-for (const page of committeePages) {
-  const faqItems = render.committeeFaqItems();
-  const graph = committeeGraph(page.route, page.title, page.description, faqItems);
-  const outputPath = path.join(outputRoot, page.route.replace(/^\//, ""), "index.html");
+const staticRoutes = (routesData.routes || [])
+  .map(({ path: route, title }) => ({ route: cleanRoute(route), title }))
+  .filter(({ route }) => route && !route.includes(":"));
+const canonicalOverrides = new Map([["/global-members/", "/members/"]]);
+const committeeRouteSet = new Set(["/leadership/", "/leadership/founding-committee/"]);
+for (const routeInfo of staticRoutes) {
+  const { route } = routeInfo;
+  const canonicalRoute = canonicalOverrides.get(route) || route;
+  const canonicalTitle = staticRoutes.find((entry) => entry.route === canonicalRoute)?.title || routeInfo.title;
+  const rendered = render.renderRoute(route);
+  const title = pageTitle(canonicalRoute, canonicalTitle, rendered.html);
+  const description = pageDescription(canonicalRoute, rendered.html);
+  const faqItems = committeeRouteSet.has(route) ? render.committeeFaqItems() : [];
+  const graph = committeeRouteSet.has(route)
+    ? committeeGraph(canonicalRoute, title, description, faqItems)
+    : publicPageGraph(canonicalRoute, title, description);
+  const documentHtml = pageDocument({
+    route: canonicalRoute,
+    pageRoute: route,
+    title,
+    description,
+    keywords: pageKeywords(rendered.html),
+    html: rendered.html,
+    graph,
+  });
+  const outputPath = route === "/"
+    ? path.join(outputRoot, "index.html")
+    : path.join(outputRoot, route.replace(/^\//, ""), "index.html");
   await mkdir(path.dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, pageDocument({ ...page, graph }), "utf8");
+  await writeFile(outputPath, documentHtml, "utf8");
 }
 
 for (const committeeMember of committee) {
@@ -310,14 +424,10 @@ for (const committeeMember of committee) {
   const html = `${render.header()}${render.profile(profile.slug)}${render.footer()}`;
   const outputPath = path.join(outputRoot, "members", profile.slug, "index.html");
   await mkdir(path.dirname(outputPath), { recursive: true });
-  await writeFile(outputPath, pageDocument({ route, title, description, html, graph, image }), "utf8");
+  await writeFile(outputPath, pageDocument({ route, title, description, keywords: pageKeywords(html), html, graph, image }), "utf8");
 }
 
-const routesData = await readJson("manus-routes.json");
-const staticRoutes = (routesData.routes || [])
-  .map(({ path: route }) => route)
-  .filter((route) => route && !route.includes(":"));
-const sitemapRoutes = new Set(staticRoutes.map(cleanRoute));
+const sitemapRoutes = new Set(staticRoutes.map(({ route }) => route).filter((route) => !canonicalOverrides.has(route)));
 for (const member of committee) sitemapRoutes.add(`/members/${member.profile_slug}/`);
 const sitemapEntries = [...sitemapRoutes]
   .sort((left, right) => left.localeCompare(right))
@@ -334,5 +444,5 @@ await writeFile(
   "utf8",
 );
 
-console.log(`SEO static pages generated: ${committeePages.length} committee pages and ${committee.length} member profiles.`);
-console.log(`Sitemap URLs: ${sitemapRoutes.size}; robots.txt allows public crawling.`);
+console.log(`SEO static pages generated: ${staticRoutes.length} literal routes and ${committee.length} committee-member profiles.`);
+console.log(`Sitemap URLs: ${sitemapRoutes.size}; canonical origin: ${origin}; robots.txt allows public crawling.`);
