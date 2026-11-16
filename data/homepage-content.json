@@ -222,6 +222,16 @@
             "href": "/news-events/"
           }
         ]
+      },
+      {
+        "title": "Social",
+        "links": [
+          {
+            "label": "LinkedIn Showcase",
+            "href": "https://www.linkedin.com/showcase/atlas-global-south-ai-policy-coalition/",
+            "external": true
+          }
+        ]
       }
     ]
   }
